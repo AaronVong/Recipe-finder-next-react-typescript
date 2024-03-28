@@ -6,7 +6,7 @@ function EdamamReducer(state: EdamamState, action: ATActions): EdamamState {
     case EnumEdamam.SearchRecipe:
       return {
         ...state,
-        recipeList: [...state.recipeList, action.payload],
+        recipeList: [action.payload],
       };
     case EnumEdamam.NextPage:
       return {
