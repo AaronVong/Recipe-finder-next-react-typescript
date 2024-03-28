@@ -22,8 +22,8 @@ interface EdamamHitInterfacae {
 }
 
 interface EdamamRecipeInterface {
-  uri: String;
-  label: String;
+  uri: string;
+  label: string;
   image: string;
   images: {
     THUMBNAIL: ImageInfo;
@@ -33,12 +33,12 @@ interface EdamamRecipeInterface {
   };
   source: string;
   url: string;
-  shareAs: String;
+  shareAs: string;
   yield: Number;
-  dietLabels: Array<String>;
-  healthLabels: Array<String>;
-  cautions: Array<String>;
-  ingredientLines: Array<String>;
+  dietLabels: Array<string>;
+  healthLabels: Array<string>;
+  cautions: Array<string>;
+  ingredientLines: Array<string>;
   ingredients: Array<EdamamIngredient>;
   calories: Number;
   glycemicIndex: Number;
@@ -46,30 +46,30 @@ interface EdamamRecipeInterface {
   totalCO2Emissions: Number;
   co2EmissionsClass: EmissionClass;
   totalWeight: Number;
-  cuisineType: Array<String>;
-  mealType: Array<String>;
-  dishType: Array<String>;
-  instructions: Array<String>;
-  tags: Array<String>;
-  externalId: String;
+  cuisineType: Array<string>;
+  mealType: Array<string>;
+  dishType: Array<string>;
+  instructions: Array<string>;
+  tags: Array<string>;
+  externalId: string;
   totalNutrients: NutrientsInfo;
   totalDaily: NutrientsInfo;
   digest: Array<DigestEntry>;
 }
 
 type ImageInfo = {
-  url: String;
+  url: string;
   width: Number;
   height: Number;
 };
 
 interface EdamamIngredient {
-  text: String;
+  text: string;
   quantity: Number;
-  measure: String;
-  food: String;
+  measure: string;
+  food: string;
   weight: Number;
-  foodId: String;
+  foodId: string;
 }
 
 enum EmissionClass {
@@ -85,31 +85,31 @@ enum EmissionClass {
 
 type NutrientsInfo = {
   [key: string]: {
-    label: String;
+    label: string;
     quantity: Number;
-    unit: String;
+    unit: string;
   };
 };
 
 type DigestEntry = {
-  label: String;
-  tag: String;
-  schemaOrgTag: String;
+  label: string;
+  tag: string;
+  schemaOrgTag: string;
   total: Number;
   hasRDI: Boolean;
   daily: Number;
-  unit: String;
+  unit: string;
   sub?: Array<Digest>;
 };
 
 type Digest = {
-  label: String;
-  tag: String;
-  schemaOrgTag: String;
+  label: string;
+  tag: string;
+  schemaOrgTag: string;
   total: Number;
   hasRDI: Boolean;
   daily: Number;
-  unit: String;
+  unit: string;
   sub?: Array<object>;
 };
 

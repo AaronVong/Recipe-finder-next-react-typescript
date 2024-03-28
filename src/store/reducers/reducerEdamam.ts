@@ -13,7 +13,6 @@ function EdamamReducer(state: EdamamState, action: ATActions): EdamamState {
       return {
         ...state,
         recipeList: [...state.recipeList, action.payload],
-        curPage: state.curPage + 1,
       };
     case EnumEdamam.RecipeDetail:
       return {

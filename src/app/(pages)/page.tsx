@@ -1,5 +1,6 @@
 "use client";
 
+import EdamamCard from "@/components/EdamaCard";
 import Pagination from "@/components/pagination";
 import SearchForm from "@/components/searchForm";
 import { MainContext } from "@/store/contexts";
@@ -10,18 +11,13 @@ export default function Home() {
   const renderRecipe = state.edamama.recipeList[
     state.edamama.curPage
   ]?.hits.map((item, index) => {
-    return (
-      <li key={index}>
-        {item.recipe.label}
-        <img src={item.recipe.image} />
-      </li>
-    );
+    return <EdamamCard recipe={item.recipe} key={index} />;
   });
   return (
     <div className="relative">
       <SearchForm />
       <Pagination />
-      <div className="grid grid-cols-5">{renderRecipe}</div>
+      <div className="grid grid-cols-5 gap-2 m-3">{renderRecipe}</div>
       <Pagination />
     </div>
   );
