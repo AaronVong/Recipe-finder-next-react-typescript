@@ -14,13 +14,7 @@ interface AppState {
 
 const initAppState: AppState = {
   edamama: {
-    recipeList: {
-      from: 0,
-      to: 0,
-      count: 0,
-      _link: null,
-      hits: [],
-    },
+    recipeList: [],
     recipe: null,
   },
   otherState: "DEMACIA",
