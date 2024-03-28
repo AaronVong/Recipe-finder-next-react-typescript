@@ -7,11 +7,13 @@ import {
 interface EdamamState {
   recipeList: Array<EdamamResponseInterface>;
   recipe: EdamamHitInterfacae | null;
+  curPage: number;
 }
 
 let initEdamamState: EdamamState = {
   recipeList: [],
   recipe: null,
+  curPage: 0,
 };
 
 export { initEdamamState };

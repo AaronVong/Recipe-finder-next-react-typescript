@@ -12,6 +12,7 @@ enum EnumEdamam {
   SearchRecipe = "SEARCH_RECIPE",
   RecipeDetail = "RECIPE_DETAIL",
   NextPage = "NEXT_PAGE",
+  SetPage = "SET_PAGE",
 }
 
 interface AISearchRecipe {
@@ -29,8 +30,13 @@ interface AINextPage {
   payload: EdamamResponseInterface;
 }
 
+interface AICurPage {
+  type: EnumEdamam.SetPage;
+  payload: number;
+}
+
 // Combine all actions type and interface into one type
-type ATActions = AISearchRecipe | AIRecipeDetail | AINextPage;
+type ATActions = AISearchRecipe | AIRecipeDetail | AINextPage | AICurPage;
 
 /**
  * ================================
@@ -52,6 +58,13 @@ function NextPageAction(payload: EdamamResponseInterface): AINextPage {
   };
 }
 
+function SetCurPageAction(payload: number): AICurPage {
+  return {
+    type: EnumEdamam.SetPage,
+    payload,
+  };
+}
+
 function RecipeDetailAction(payload: EdamamHitInterfacae): AIRecipeDetail {
   return {
     type: EnumEdamam.RecipeDetail,
@@ -65,5 +78,5 @@ function RecipeDetailAction(payload: EdamamHitInterfacae): AIRecipeDetail {
  * ================================
  */
 export default ATActions;
-export type { AISearchRecipe, AIRecipeDetail, AINextPage };
-export { EnumEdamam, SearchRecipeAction, NextPageAction };
+export type { AISearchRecipe, AIRecipeDetail, AINextPage, AICurPage };
+export { EnumEdamam, SearchRecipeAction, NextPageAction, SetCurPageAction };

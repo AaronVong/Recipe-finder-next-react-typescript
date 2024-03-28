@@ -12,11 +12,17 @@ function EdamamReducer(state: EdamamState, action: ATActions): EdamamState {
       return {
         ...state,
         recipeList: [...state.recipeList, action.payload],
+        curPage: state.curPage + 1,
       };
     case EnumEdamam.RecipeDetail:
       return {
         ...state,
         recipe: action.payload,
+      };
+    case EnumEdamam.SetPage:
+      return {
+        ...state,
+        curPage: action.payload,
       };
     default:
       return state;

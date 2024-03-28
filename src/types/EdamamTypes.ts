@@ -2,7 +2,7 @@ interface EdamamResponseInterface {
   from: Number;
   to: Number;
   count: Number;
-  _links: EdamamLinksInbterface | null;
+  _links: EdamamLinksInbterface;
   hits: Array<EdamamHitInterfacae>;
 }
 

@@ -16,6 +16,7 @@ const initAppState: AppState = {
   edamama: {
     recipeList: [],
     recipe: null,
+    curPage: 0,
   },
   otherState: "DEMACIA",
 };
