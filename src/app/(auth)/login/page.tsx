@@ -27,10 +27,11 @@ export default function Login() {
     if (!user.username || !user.password) {
       alert("Please fill the form.");
     }
+    return;
   };
   return (
     <div className="w-1/2 p-2 bg-slate-200">
-      <form className="flex flex-col gap-y-2">
+      <form className="flex flex-col gap-y-2" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-y-2">
           <label className="font-bold">Username:</label>
           <input

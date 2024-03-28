@@ -13,19 +13,21 @@ export default function Pagination() {
   async function handleNextClick() {
     if (state.edamama.recipeList.length == 0) {
       return;
-    }
-    if (state.edamama.recipeList[state.edamama.curPage + 1]) {
+    } else if (state.edamama.recipeList[state.edamama.curPage + 1]) {
       dispatch(SetCurPageAction(state.edamama.curPage + 1));
     } else {
+      if (!state.edamama.recipeList[state.edamama.curPage]._links.next) {
+        return;
+      }
       const data = await nextPageFetch(
-        state.edamama.recipeList[state.edamama.curPage]._links.next.href
+        state.edamama.recipeList[state.edamama.curPage]._links?.next?.href
       );
       dispatch(NextPageAction(data));
     }
   }
 
   function handlePrePageClick() {
-    if (state.edamama.recipeList.length == 0) {
+    if (state.edamama.recipeList.length == 0 || state.edamama.curPage == 0) {
       return;
     }
     dispatch(SetCurPageAction(state.edamama.curPage - 1));

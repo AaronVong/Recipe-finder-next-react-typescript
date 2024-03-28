@@ -42,8 +42,11 @@ async function searchRecipe(
   }
 }
 
-async function nextPageFetch(nextPagePath: string) {
+async function nextPageFetch(nextPagePath: string | null | undefined) {
   try {
+    if (!nextPagePath) {
+      return null;
+    }
     const options = getFetchHeaderOptions();
     const response = await fetch(nextPagePath, options);
     const data = await response.json();
