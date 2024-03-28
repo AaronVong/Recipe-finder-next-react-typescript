@@ -24,15 +24,15 @@ interface EdamamHitInterfacae {
 interface EdamamRecipeInterface {
   uri: String;
   label: String;
-  image: String;
+  image: string;
   images: {
     THUMBNAIL: ImageInfo;
     SMALL: ImageInfo;
     REGULAR: ImageInfo;
     LARGE: ImageInfo;
   };
-  source: String;
-  url: String;
+  source: string;
+  url: string;
   shareAs: String;
   yield: Number;
   dietLabels: Array<String>;

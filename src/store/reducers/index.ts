@@ -2,9 +2,7 @@
  * This file will combine all reducer into 1
  */
 
-import { EdamamResponseInterface } from "@/types/EdamamTypes";
 import ATActions from "../actions/edamamActions";
-import { EdamamState } from "@/store/contexts/edamamContext";
 import EdamamReducer from "./reducerEdamam";
 import { AppState } from "../contexts";
 

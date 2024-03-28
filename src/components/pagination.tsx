@@ -36,7 +36,11 @@ export default function Pagination() {
         <ChevronLeftIcon className="w-10 bg-slate-200 rounded text-stone-500 group-hover:bg-slate-500 group-hover:text-stone-200 transition-colors" />
       </li>
       <li className="w-10 text-center">
-        <span>{state.edamama.curPage}</span>
+        <span>
+          {state.edamama.curPage == 0
+            ? state.edamama.curPage
+            : state.edamama.curPage + 1}
+        </span>
       </li>
       <li className="w-10 cursor-pointer group" onClick={handleNextClick}>
         <ChevronRightIcon className="w- bg-slate-200 rounded text-stone-500 group-hover:bg-slate-500 group-hover:text-stone-200 transition-colors" />
