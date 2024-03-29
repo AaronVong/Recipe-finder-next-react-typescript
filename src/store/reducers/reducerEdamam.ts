@@ -24,6 +24,11 @@ function EdamamReducer(state: EdamamState, action: ATActions): EdamamState {
         ...state,
         curPage: action.payload,
       };
+    case EnumEdamam.SetLoading:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
     default:
       return state;
   }

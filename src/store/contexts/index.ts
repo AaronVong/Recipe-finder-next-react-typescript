@@ -3,8 +3,7 @@
  */
 
 import { createContext, useReducer } from "react";
-import { EdamamState } from "./edamamContext";
-import mainReducer from "../reducers";
+import { EdamamState, initEdamamState } from "./edamamContext";
 import ATActions from "../actions/edamamActions";
 
 interface AppState {
@@ -13,11 +12,7 @@ interface AppState {
 }
 
 const initAppState: AppState = {
-  edamama: {
-    recipeList: [],
-    recipe: null,
-    curPage: 0,
-  },
+  edamama: initEdamamState,
   otherState: "DEMACIA",
 };
 

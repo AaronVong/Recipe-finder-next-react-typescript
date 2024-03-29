@@ -2,6 +2,7 @@ import { nextPageFetch } from "@/services/fetchWebContent";
 import {
   NextPageAction,
   SetCurPageAction,
+  SetLoadingAction,
 } from "@/store/actions/edamamActions";
 import { MainContext } from "@/store/contexts";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
@@ -14,11 +15,12 @@ export default function Pagination() {
     if (state.edamama.recipeList.length == 0) {
       return;
     }
-
+    dispatch(SetLoadingAction(true));
     if (state.edamama.recipeList[state.edamama.curPage + 1]) {
       dispatch(SetCurPageAction(state.edamama.curPage + 1));
     } else {
       if (!state.edamama.recipeList[state.edamama.curPage]._links.next) {
+        dispatch(SetLoadingAction(false));
         return;
       }
       const data = await nextPageFetch(
@@ -27,13 +29,17 @@ export default function Pagination() {
       dispatch(NextPageAction(data));
       dispatch(SetCurPageAction(state.edamama.curPage + 1));
     }
+    dispatch(SetLoadingAction(false));
   }
 
   function handlePrePageClick() {
+    dispatch(SetLoadingAction(true));
     if (state.edamama.recipeList.length == 0 || state.edamama.curPage == 0) {
+      dispatch(SetLoadingAction(false));
       return;
     }
     dispatch(SetCurPageAction(state.edamama.curPage - 1));
+    dispatch(SetLoadingAction(false));
   }
   return (
     <ul className="flex gap-x-2 justify-center items-center">

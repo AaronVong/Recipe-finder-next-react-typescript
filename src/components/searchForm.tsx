@@ -5,7 +5,10 @@ import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 import { searchRecipe } from "@/services/fetchWebContent";
 import mainReducer from "@/store/reducers";
 import { initAppState, MainContext } from "@/store/contexts";
-import { SearchRecipeAction } from "@/store/actions/edamamActions";
+import {
+  SearchRecipeAction,
+  SetLoadingAction,
+} from "@/store/actions/edamamActions";
 export default function SearchForm() {
   const { state, dispatch } = useContext(MainContext);
   const [key, setKey] = useState<string>("");
@@ -14,14 +17,16 @@ export default function SearchForm() {
     if (!key) {
       return;
     }
+    dispatch(SetLoadingAction(true));
     // call API
     const data = await searchRecipe(key);
-    if (!data) {
+    if (data) {
+      // set response data to react
+      dispatch(SearchRecipeAction(data));
+    } else {
       alert("Not found any recipe.");
-      return;
     }
-    // set response data to react
-    dispatch(SearchRecipeAction(data));
+    dispatch(SetLoadingAction(false));
   }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {

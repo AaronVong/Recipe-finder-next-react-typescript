@@ -16,9 +16,15 @@ export default function Home() {
   return (
     <div className="relative">
       <SearchForm />
-      <Pagination />
-      <div className="grid grid-cols-5 gap-2 m-3">{renderRecipe}</div>
-      <Pagination />
+      {state.edamama.isLoading ? (
+        "Loading..."
+      ) : (
+        <>
+          <Pagination />
+          <div className="grid grid-cols-2 gap-2 m-3">{renderRecipe}</div>
+          <Pagination />
+        </>
+      )}
     </div>
   );
 }
