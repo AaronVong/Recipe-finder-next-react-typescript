@@ -2,6 +2,10 @@
 
 import { EdamamRecipeInterface } from "@/types/EdamamTypes";
 import LabelListing from "./ultilities/labelListing";
+import {
+  ChevronDoubleRightIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/outline";
 
 export default function EdamamCard({
   recipe,
@@ -21,6 +25,15 @@ export default function EdamamCard({
           <LabelListing labelArray={recipe.cuisineType} title="Cuisine" />
           <LabelListing labelArray={recipe.dietLabels} title="Diet Plans" />
           <LabelListing labelArray={recipe.healthLabels} title="Healths" />
+          <cite>
+            <a
+              href={recipe.url}
+              target="_blank"
+              className="flex gap-x-1 items-center p-2 text-blue-600 font-semibold"
+            >
+              Read more <ChevronDoubleRightIcon className="w-5" />
+            </a>
+          </cite>
         </div>
       </div>
       <div className="bg-slate-200 w-full h-max-1/3">
