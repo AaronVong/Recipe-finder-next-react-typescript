@@ -1,4 +1,6 @@
-import { ReactElement } from "react";
+"use client";
+import mainReducer from "@/store/reducers";
+import { ReactElement, useReducer } from "react";
 
 /**
  * Authroization Layout

@@ -6,14 +6,20 @@ import {
   ChevronDoubleRightIcon,
   ChevronRightIcon,
 } from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/solid";
 
 export default function EdamamCard({
   recipe,
+  recipe_id,
 }: {
   recipe: EdamamRecipeInterface;
+  recipe_id: string;
 }) {
+  const handleClickFavorite = async (
+    event: React.MouseEvent<HTMLElement>
+  ) => {};
   return (
-    <div className="h-min-[500px] gap-y-3 bg-white border shadow-sm shadow-slate-500 p-3 flex flex-col text-stone-800 text-sm">
+    <div className="h-min-[500px] gap-y-3 bg-white border shadow-sm shadow-slate-500 p-3 flex flex-col text-stone-800 text-sm relative">
       <h5 className="capitalize font-semibold text-lg min-h-min">
         {recipe.label}
       </h5>
@@ -38,6 +44,12 @@ export default function EdamamCard({
       </div>
       <div className="bg-slate-200 w-full h-max-1/3">
         <LabelListing labelArray={recipe.ingredientLines} title="Ingredients" />
+      </div>
+      <div
+        className="cursor-pointer absolute top-10 right-10"
+        onClick={handleClickFavorite}
+      >
+        <HeartIcon className="w-5 text-pink-700 transition-all hover:text-pink-500 hover:scale-150" />
       </div>
     </div>
   );

@@ -3,26 +3,27 @@
  */
 
 import { createContext, useReducer } from "react";
-import { EdamamState, initEdamamState } from "./edamamContext";
-import ATActions from "../actions/edamamActions";
+import { EdamamStateInterface, initEdamamState } from "./edamamContext";
+import { initUserState, UserStateInterface } from "./userContext";
+import AppActions from "../actions";
 
-interface AppState {
-  edamama: EdamamState;
-  otherState: String;
+interface GlobalStateInterface {
+  edamama: EdamamStateInterface;
+  user: UserStateInterface;
 }
 
-const initAppState: AppState = {
+const initGlobalState: GlobalStateInterface = {
   edamama: initEdamamState,
-  otherState: "DEMACIA",
+  user: initUserState,
 };
 
-const MainContext = createContext<{
-  state: AppState;
-  dispatch: React.Dispatch<ATActions>;
+const GlobalContext = createContext<{
+  state: GlobalStateInterface;
+  dispatch: React.Dispatch<AppActions>;
 }>({
-  state: initAppState,
+  state: initGlobalState,
   dispatch: () => null,
 });
 
-export { initAppState, MainContext };
-export type { AppState };
+export { initGlobalState, GlobalContext };
+export type { GlobalStateInterface };

@@ -16,38 +16,38 @@ enum EnumEdamam {
   SetLoading = "SET_LOADING",
 }
 
-interface AIRecipeLoading {
+type RecipeLoadingActionType = {
   type: EnumEdamam.SetLoading;
   payload: boolean;
-}
+};
 
-interface AISearchRecipe {
+type SearchRecipeActionType = {
   type: EnumEdamam.SearchRecipe;
   payload: EdamamResponseInterface;
-}
+};
 
-interface AIRecipeDetail {
+type RecipeDetailActionType = {
   type: EnumEdamam.RecipeDetail;
   payload: EdamamHitInterfacae;
-}
+};
 
-interface AINextPage {
+type NextPageActionType = {
   type: EnumEdamam.NextPage;
   payload: EdamamResponseInterface;
-}
+};
 
-interface AICurPage {
+type SetCurPageActionType = {
   type: EnumEdamam.SetPage;
   payload: number;
-}
+};
 
 // Combine all actions type and interface into one type
-type ATActions =
-  | AISearchRecipe
-  | AIRecipeDetail
-  | AINextPage
-  | AICurPage
-  | AIRecipeLoading;
+type EdamamActions =
+  | RecipeLoadingActionType
+  | SearchRecipeActionType
+  | RecipeDetailActionType
+  | NextPageActionType
+  | SetCurPageActionType;
 
 /**
  * ================================
@@ -55,35 +55,39 @@ type ATActions =
  * ================================
  */
 
-function SearchRecipeAction(payload: EdamamResponseInterface): AISearchRecipe {
+function SearchRecipeAction(
+  payload: EdamamResponseInterface
+): SearchRecipeActionType {
   return {
     type: EnumEdamam.SearchRecipe,
     payload,
   };
 }
 
-function NextPageAction(payload: EdamamResponseInterface): AINextPage {
+function NextPageAction(payload: EdamamResponseInterface): NextPageActionType {
   return {
     type: EnumEdamam.NextPage,
     payload,
   };
 }
 
-function SetCurPageAction(payload: number): AICurPage {
+function SetCurPageAction(payload: number): SetCurPageActionType {
   return {
     type: EnumEdamam.SetPage,
     payload,
   };
 }
 
-function RecipeDetailAction(payload: EdamamHitInterfacae): AIRecipeDetail {
+function RecipeDetailAction(
+  payload: EdamamHitInterfacae
+): RecipeDetailActionType {
   return {
     type: EnumEdamam.RecipeDetail,
     payload,
   };
 }
 
-function SetLoadingAction(payload: boolean): AIRecipeLoading {
+function SetLoadingAction(payload: boolean): RecipeLoadingActionType {
   return {
     type: EnumEdamam.SetLoading,
     payload,
@@ -94,13 +98,13 @@ function SetLoadingAction(payload: boolean): AIRecipeLoading {
  * Export
  * ================================
  */
-export default ATActions;
+export default EdamamActions;
 export type {
-  AISearchRecipe,
-  AIRecipeDetail,
-  AINextPage,
-  AICurPage,
-  AIRecipeLoading,
+  RecipeLoadingActionType,
+  SearchRecipeActionType,
+  RecipeDetailActionType,
+  NextPageActionType,
+  SetCurPageActionType,
 };
 export {
   EnumEdamam,

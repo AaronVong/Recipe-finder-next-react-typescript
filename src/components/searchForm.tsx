@@ -3,14 +3,13 @@
 import { useContext, useReducer, useState } from "react";
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 import { searchRecipe } from "@/services/fetchWebContent";
-import mainReducer from "@/store/reducers";
-import { initAppState, MainContext } from "@/store/contexts";
+import { GlobalContext } from "@/store/contexts";
 import {
   SearchRecipeAction,
   SetLoadingAction,
 } from "@/store/actions/edamamActions";
 export default function SearchForm() {
-  const { state, dispatch } = useContext(MainContext);
+  const { state, dispatch } = useContext(GlobalContext);
   const [key, setKey] = useState<string>("");
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

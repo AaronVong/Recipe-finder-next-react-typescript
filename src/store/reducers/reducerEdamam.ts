@@ -1,7 +1,11 @@
-import ATActions, { EnumEdamam } from "../actions/edamamActions";
-import { EdamamState } from "@/store/contexts/edamamContext";
+import AppActions from "../actions";
+import { EnumEdamam } from "../actions/edamamActions";
+import { EdamamStateInterface } from "@/store/contexts/edamamContext";
 
-function EdamamReducer(state: EdamamState, action: ATActions): EdamamState {
+function edamamReducer(
+  state: EdamamStateInterface,
+  action: AppActions
+): EdamamStateInterface {
   switch (action.type) {
     case EnumEdamam.SearchRecipe:
       return {
@@ -34,4 +38,4 @@ function EdamamReducer(state: EdamamState, action: ATActions): EdamamState {
   }
 }
 
-export default EdamamReducer;
+export default edamamReducer;

@@ -4,14 +4,14 @@ import {
   EdamamResponseInterface,
 } from "@/types/EdamamTypes";
 
-interface EdamamState {
+interface EdamamStateInterface {
   recipeList: Array<EdamamResponseInterface>;
   recipe: EdamamHitInterfacae | null;
   curPage: number;
   isLoading: boolean;
 }
 
-let initEdamamState: EdamamState = {
+let initEdamamState: EdamamStateInterface = {
   recipeList: [],
   recipe: null,
   curPage: 0,
@@ -19,4 +19,4 @@ let initEdamamState: EdamamState = {
 };
 
 export { initEdamamState };
-export type { EdamamState };
+export type { EdamamStateInterface };

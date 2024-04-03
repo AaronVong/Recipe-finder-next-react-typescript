@@ -4,13 +4,13 @@ import {
   SetCurPageAction,
   SetLoadingAction,
 } from "@/store/actions/edamamActions";
-import { MainContext } from "@/store/contexts";
+import { GlobalContext } from "@/store/contexts";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useContext } from "react";
 
 export default function Pagination() {
-  const { state, dispatch } = useContext(MainContext);
+  const { state, dispatch } = useContext(GlobalContext);
   async function handleNextClick() {
     if (state.edamama.recipeList.length == 0) {
       return;

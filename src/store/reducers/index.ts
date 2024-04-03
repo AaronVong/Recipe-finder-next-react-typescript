@@ -2,13 +2,17 @@
  * This file will combine all reducer into 1
  */
 
-import ATActions from "../actions/edamamActions";
-import EdamamReducer from "./reducerEdamam";
-import { AppState } from "../contexts";
+import edamamReducer from "./reducerEdamam";
+import { GlobalStateInterface } from "../contexts";
+import AppActions from "../actions";
+import userReducer from "./userReducer";
 
-const mainReducer = (state: AppState, action: ATActions): AppState => ({
-  edamama: EdamamReducer(state.edamama, action),
-  otherState: "Demacia",
+const mainReducer = (
+  state: GlobalStateInterface,
+  action: AppActions
+): GlobalStateInterface => ({
+  edamama: edamamReducer(state.edamama, action),
+  user: userReducer(state.user, action),
 });
 
 export default mainReducer;
