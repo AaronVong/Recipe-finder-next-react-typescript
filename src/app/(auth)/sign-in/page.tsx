@@ -2,9 +2,10 @@
 import { signIn, SignInType } from "@/services/authentication";
 import { redirect } from "next/navigation";
 import { useState } from "react";
-
+import axios from "axios";
 export default function SignIn() {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [user, setUser] = useState<SignInType>({
     username: "",
     password: "",
@@ -32,6 +33,7 @@ export default function SignIn() {
       localStorage.setItem("oauth2", JSON.stringify(data.data));
       redirect("/favorite");
     } else {
+      setError(true);
       console.log(data.data);
     }
 
@@ -64,6 +66,11 @@ export default function SignIn() {
             value={user.password}
           ></input>
         </div>
+        {error ? (
+          <div className="w-2/6 self-center text-center text-red-500">
+            Username or passwor are incorrect
+          </div>
+        ) : null}
         {!loading ? (
           <button
             type="submit"

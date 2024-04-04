@@ -1,5 +1,4 @@
 import { EdamamResponseInterface } from "@/types/EdamamTypes";
-import { Cookie } from "next/font/google";
 
 async function fetchMenuItem(menuName: string) {
   try {
@@ -16,21 +15,12 @@ async function fetchMenuItem(menuName: string) {
 
 function getFetchHeaderOptions(
   method: string = "GET",
-  body?: any,
-  contentType: string = "application/json"
+  body?: any
 ): RequestInit {
   return {
     method,
     mode: "cors",
-    headers: {
-      "Content-Type": contentType,
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "*",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Accept-Language": "en",
-    },
     body,
-    credentials: "same-origin",
   };
 }
 async function searchRecipe(

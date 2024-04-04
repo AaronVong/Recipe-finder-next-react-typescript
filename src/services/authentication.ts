@@ -51,11 +51,7 @@ const signIn = async (userCredential: SignInType) => {
       formData.append("username", userCredential.username);
       formData.append("password", userCredential.password);
       formData.append("grant_type", process.env.NEXT_PUBLIC_BACKEND_GRANT_TYPE);
-      const options = getFetchHeaderOptions(
-        "POST",
-        formData,
-        "multipart/form-data"
-      );
+      const options = getFetchHeaderOptions("POST", formData);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_PATH}/oauth/token?_format=json`,
         options
