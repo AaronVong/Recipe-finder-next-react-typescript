@@ -9,6 +9,7 @@ interface UserStateInterface {
   favoriteRecipes: Array<string>;
   isLoading: boolean;
   auth: AuthInterface;
+  email?: string;
 }
 
 let initUserState: UserStateInterface = {

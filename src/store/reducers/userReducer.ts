@@ -20,6 +20,11 @@ export default function userReducer(
           isAuth: action.payload.isAuth,
         },
       };
+    case EnumUser.SetEmail:
+      return {
+        ...state,
+        email: action.payload,
+      };
     default:
       return state;
   }

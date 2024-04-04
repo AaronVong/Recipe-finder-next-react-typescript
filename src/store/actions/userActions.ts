@@ -13,6 +13,7 @@ enum EnumUser {
   GetFavorite = "GEt_FAVORITE",
   SetLoading = "SET_LOADING",
   SetAuth = "SET_AUTH",
+  SetEmail = "SET_EMAIL",
 }
 
 type GetFavoriteActionType = {
@@ -29,11 +30,17 @@ type SetAuthActionType = {
   type: EnumUser.SetAuth;
   payload: AuthInterface;
 };
+
+type SetUserEmailActionType = {
+  type: EnumUser.SetEmail;
+  payload: string;
+};
 // Combine all actions type and interface into one type
 type UserActions =
   | GetFavoriteActionType
   | SetLoadingActionType
-  | SetAuthActionType;
+  | SetAuthActionType
+  | SetUserEmailActionType;
 
 /**
  * ================================
@@ -63,11 +70,29 @@ function SetAuthAction(payload: AuthInterface): SetAuthActionType {
     payload,
   };
 }
+
+function SetEmailAction(payload: string): SetUserEmailActionType {
+  return {
+    type: EnumUser.SetEmail,
+    payload,
+  };
+}
 /**
  * ================================
  * Export
  * ================================
  */
 export default UserActions;
-export type { GetFavoriteActionType, SetLoadingActionType, SetAuthActionType };
-export { EnumUser, GetFavoriteAction, SetLoadingAction, SetAuthAction };
+export type {
+  GetFavoriteActionType,
+  SetLoadingActionType,
+  SetAuthActionType,
+  SetUserEmailActionType,
+};
+export {
+  EnumUser,
+  GetFavoriteAction,
+  SetLoadingAction,
+  SetAuthAction,
+  SetEmailAction,
+};

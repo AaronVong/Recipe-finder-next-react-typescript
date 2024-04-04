@@ -7,6 +7,12 @@ import { ReactElement, useContext, useEffect, useLayoutEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AuthShield({ children }: { children: any }) {
-  const isAuth = true;
-  return isAuth == true ? children : redirect("/login");
+  let isAuth: boolean = false;
+  useEffect(() => {
+    let token = localStorage.getItem("oauth2");
+    if (token) {
+      isAuth = true;
+    }
+  });
+  return isAuth == true ? children : redirect("/sign-in");
 }

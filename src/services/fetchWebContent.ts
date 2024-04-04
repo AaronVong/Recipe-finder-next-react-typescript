@@ -14,17 +14,23 @@ async function fetchMenuItem(menuName: string) {
   }
 }
 
-function getFetchHeaderOptions(method: string = "GET"): RequestInit {
+function getFetchHeaderOptions(
+  method: string = "GET",
+  body?: any,
+  contentType: string = "application/json"
+): RequestInit {
   return {
     method,
     mode: "cors",
     headers: {
-      "Content-Type": "application/json;charset=UTF-8",
+      "Content-Type": contentType,
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "*",
       "Access-Control-Allow-Headers": "Content-Type",
       "Accept-Language": "en",
     },
+    body,
+    credentials: "same-origin",
   };
 }
 async function searchRecipe(
@@ -56,4 +62,4 @@ async function nextPageFetch(nextPagePath: string | null | undefined) {
     return null;
   }
 }
-export { fetchMenuItem, searchRecipe, nextPageFetch };
+export { fetchMenuItem, searchRecipe, nextPageFetch, getFetchHeaderOptions };

@@ -1,17 +1,16 @@
 "use client";
+import { signIn, SignInType } from "@/services/authentication";
+import { redirect } from "next/navigation";
 import { useState } from "react";
-type User = {
-  username: string;
-  password: string;
-};
-export default function Login() {
-  const [user, setUser] = useState<User>({
+
+export default function SignIn() {
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<SignInType>({
     username: "",
     password: "",
   });
 
   let isFilled = user.username && user.password ? true : false;
-  console.log(isFilled);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
     const targetName: string | null = target.getAttribute("name");
@@ -22,12 +21,21 @@ export default function Login() {
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     event.preventDefault();
     if (!user.username || !user.password) {
       alert("Please fill the form.");
     }
-    return;
+    const data = await signIn(user);
+    if (data.status) {
+      localStorage.setItem("oauth2", JSON.stringify(data.data));
+      redirect("/favorite");
+    } else {
+      console.log(data.data);
+    }
+
+    setLoading(false);
   };
   return (
     <div className="w-1/2 p-2 bg-slate-200">
@@ -56,14 +64,20 @@ export default function Login() {
             value={user.password}
           ></input>
         </div>
-        <button
-          type="submit"
-          className="border bg-blue-500 py-2 px-1 w-1/6 self-center text-stone-200 rounded-md"
-          disabled={!isFilled}
-        >
-          Login
-        </button>
+        {!loading ? (
+          <button
+            type="submit"
+            className="border bg-blue-500 py-2 px-1 w-1/6 self-center text-stone-200 rounded-md"
+            disabled={!isFilled}
+          >
+            Sign in
+          </button>
+        ) : (
+          <div className="w-1/6 self-center text-center">Signing in...</div>
+        )}
       </form>
     </div>
   );
 }
+
+export type { SignInType };

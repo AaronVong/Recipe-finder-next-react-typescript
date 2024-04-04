@@ -1,6 +1,7 @@
 "use client";
 import mainReducer from "@/store/reducers";
-import { ReactElement, useReducer } from "react";
+import { redirect } from "next/navigation";
+import { ReactElement, useEffect, useReducer } from "react";
 
 /**
  * Authroization Layout
@@ -10,9 +11,16 @@ export default function LAuthorization({
 }: {
   children: ReactElement;
 }) {
+  let isAuth: boolean = false;
+  useEffect(() => {
+    let token = localStorage.getItem("oauth2");
+    if (token) {
+      isAuth = true;
+    }
+  });
   return (
     <main className="w-full h-full flex justify-center items-center">
-      {children}
+      {isAuth ? redirect("/") : children}
     </main>
   );
 }
