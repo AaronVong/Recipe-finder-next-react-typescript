@@ -30,8 +30,19 @@ function getFetchHeaderOptions(
 }
 
 function isTokenExpired(time: number) {
-  let now = Date.now();
-  return now + time < now;
+  let today = new Date();
+  let expiredDate = new Date(time);
+  return expiredDate.getTime() < today.getTime();
 }
 
-export { getAccessToken, getFetchHeaderOptions, isTokenExpired };
+function calculateExpiredTime(seconds: number): number {
+  let today = new Date();
+  today.setSeconds(today.getSeconds() + seconds);
+  return today.getTime();
+}
+export {
+  getAccessToken,
+  getFetchHeaderOptions,
+  isTokenExpired,
+  calculateExpiredTime,
+};

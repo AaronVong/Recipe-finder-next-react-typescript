@@ -1,4 +1,8 @@
-import { getAccessToken, getFetchHeaderOptions } from "./fetchHelper";
+import {
+  calculateExpiredTime,
+  getAccessToken,
+  getFetchHeaderOptions,
+} from "./fetchHelper";
 
 type SignUpType = {
   name?: string;
@@ -60,6 +64,10 @@ const signIn = async (userCredential: SignInType) => {
         options
       );
       const data = await response.json();
+      if (response.ok) {
+        let expiresIn = data.expires_in;
+        data.expires_in = calculateExpiredTime(expiresIn);
+      }
       return {
         status: response.ok,
         data,
@@ -163,6 +171,10 @@ async function refreshAccessToken(): Promise<{ status: boolean; data: any }> {
         options
       );
       const data = await response.json();
+      if (response.ok) {
+        let expiresIn = data.expires_in;
+        data.expires_in = calculateExpiredTime(expiresIn);
+      }
       return {
         status: response.ok,
         data,
