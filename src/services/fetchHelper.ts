@@ -11,13 +11,22 @@ function getAccessToken(): AccessTokenInterface | null {
 
 function getFetchHeaderOptions(
   method: string = "GET",
-  body?: any
+  body?: any,
+  withOauth2: boolean = false
 ): RequestInit {
-  return {
+  let options: RequestInit = {
     method,
     mode: "cors",
     body,
   };
+  let oauth = getAccessToken();
+  if (oauth && withOauth2) {
+    options.headers = {
+      Authorization: `${oauth.token_type} ${oauth.access_token}`,
+    };
+  }
+
+  return options;
 }
 
 function isTokenExpired(time: number) {

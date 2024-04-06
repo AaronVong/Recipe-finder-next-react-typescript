@@ -30,6 +30,16 @@ export default function userReducer(
         ...state,
         profile: { ...action.payload },
       };
+    case EnumUser.AddFav:
+      return {
+        ...state,
+        favoriteRecipes: action.payload,
+      };
+    case EnumUser.GetFavorite:
+      return {
+        ...state,
+        favoriteRecipes: action.payload,
+      };
     default:
       return state;
   }

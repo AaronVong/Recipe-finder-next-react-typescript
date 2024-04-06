@@ -5,6 +5,7 @@ import {
 import {
   AuthInterface,
   FavortieRecipeInterafce,
+  RecipeLink,
   UserProfileInterface,
 } from "@/types/UserTypes";
 
@@ -19,6 +20,7 @@ enum EnumUser {
   SetAuth = "SET_AUTH",
   SetEmail = "SET_EMAIL",
   SetUserProfile = "SET_USER_PROFILE",
+  AddFav = "ADD_FAV",
 }
 
 type GetFavoriteActionType = {
@@ -44,13 +46,19 @@ type SetUserProfileActionType = {
   type: EnumUser.SetUserProfile;
   payload: UserProfileInterface;
 };
+
+type AddFavActionType = {
+  type: EnumUser.AddFav;
+  payload: FavortieRecipeInterafce;
+};
 // Combine all actions type and interface into one type
 type UserActions =
   | GetFavoriteActionType
   | SetLoadingActionType
   | SetAuthActionType
   | SetUserEmailActionType
-  | SetUserProfileActionType;
+  | SetUserProfileActionType
+  | AddFavActionType;
 
 /**
  * ================================
@@ -96,6 +104,14 @@ function SetUserProfileAction(
     payload,
   };
 }
+
+function AddFavAction(payload: FavortieRecipeInterafce): AddFavActionType {
+  return {
+    type: EnumUser.AddFav,
+    payload,
+  };
+}
+
 /**
  * ================================
  * Export
@@ -108,6 +124,7 @@ export type {
   SetAuthActionType,
   SetUserEmailActionType,
   SetUserProfileActionType,
+  AddFavActionType,
 };
 export {
   EnumUser,
@@ -116,4 +133,5 @@ export {
   SetAuthAction,
   SetEmailAction,
   SetUserProfileAction,
+  AddFavAction,
 };
