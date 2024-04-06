@@ -13,7 +13,7 @@ interface UserStateInterface {
   favoriteRecipes: Array<string>;
   isLoading: boolean;
   auth: AuthInterface;
-  email?: string;
+  email?: string; // this email using when first time user register
   profile: UserProfileInterface;
 }
 

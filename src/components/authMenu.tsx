@@ -8,7 +8,7 @@ export default function AuthMenu() {
   return (
     <ul className="w-1/4 text-center flex">
       {state.user.auth.isAuth ? (
-        "User name"
+        <ListItem textWithLink={false} itemTitle={state.user.profile.mail} />
       ) : (
         <React.Fragment>
           <ListItem textWithLink={true} link="/sign-in" itemTitle="Sign in" />

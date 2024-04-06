@@ -9,9 +9,5 @@ import { useContext, useEffect, useState } from "react";
 
 export default function Favorite() {
   const { state, dispatch } = useContext(GlobalContext);
-  return (
-    <AuthGuard>
-      <div>This is protected page</div>
-    </AuthGuard>
-  );
+  return <div>This is protected page</div>;
 }

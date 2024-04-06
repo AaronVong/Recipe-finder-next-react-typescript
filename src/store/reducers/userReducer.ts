@@ -25,6 +25,11 @@ export default function userReducer(
         ...state,
         email: action.payload,
       };
+    case EnumUser.SetUserProfile:
+      return {
+        ...state,
+        profile: { ...action.payload },
+      };
     default:
       return state;
   }
