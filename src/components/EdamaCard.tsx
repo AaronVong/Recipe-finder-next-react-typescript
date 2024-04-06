@@ -53,9 +53,7 @@ export default function EdamamCard({
   const handleClickFavorite = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     const response = await addFavoriteRecipe(recipeLink);
-    console.log(response);
     if (response.status && response.data) {
-      console.log(response.data);
       dispatch(AddFavAction(response.data));
     }
   };
