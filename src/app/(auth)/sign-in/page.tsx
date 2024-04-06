@@ -1,9 +1,10 @@
 "use client";
 import { signIn, SignInType } from "@/services/authentication";
-import { redirect } from "next/navigation";
 import { useState } from "react";
-import axios from "axios";
+import { useRouter } from "next/navigation";
+
 export default function SignIn() {
+  const { push } = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [user, setUser] = useState<SignInType>({
@@ -24,14 +25,16 @@ export default function SignIn() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
+    setError(false);
     event.preventDefault();
     if (!user.username || !user.password) {
       alert("Please fill the form.");
     }
     const data = await signIn(user);
+    console.log(data);
     if (data.status) {
       localStorage.setItem("oauth2", JSON.stringify(data.data));
-      redirect("/favorite");
+      push("/");
     } else {
       setError(true);
       console.log(data.data);

@@ -3,13 +3,18 @@ import {
   EdamamHitInterfacae,
   EdamamResponseInterface,
 } from "@/types/EdamamTypes";
-import { AuthInterface } from "@/types/UserTypes";
+import {
+  AccessTokenInterface,
+  AuthInterface,
+  UserProfileInterface,
+} from "@/types/UserTypes";
 
 interface UserStateInterface {
   favoriteRecipes: Array<string>;
   isLoading: boolean;
   auth: AuthInterface;
   email?: string;
+  profile: UserProfileInterface;
 }
 
 let initUserState: UserStateInterface = {
@@ -19,11 +24,25 @@ let initUserState: UserStateInterface = {
     token: {
       access_token: "",
       refresh_token: "",
-      expired: 0,
+      expires_in: 0,
+      token_type: "",
     },
     isAuth: false,
   },
+  profile: {
+    name: "",
+    mail: "",
+    field_u_first_name: "",
+    field_u_last_name: "",
+    user_picture: "",
+  },
 };
 
-export { initUserState };
+let initAccessToken: AccessTokenInterface = {
+  access_token: "",
+  refresh_token: "",
+  expires_in: 0,
+  token_type: "",
+};
+export { initUserState, initAccessToken };
 export type { UserStateInterface };

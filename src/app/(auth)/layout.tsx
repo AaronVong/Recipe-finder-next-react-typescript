@@ -1,8 +1,10 @@
 "use client";
 import mainReducer from "@/store/reducers";
-import { redirect } from "next/navigation";
-import { ReactElement, useEffect, useReducer } from "react";
-
+import { redirect, useRouter } from "next/navigation";
+import { ReactElement, useContext, useEffect, useReducer } from "react";
+import { getUserInfo } from "@/services/authentication";
+import { GlobalContext } from "@/store/contexts";
+import Home from "../(pages)/page";
 /**
  * Authroization Layout
  */
@@ -11,16 +13,16 @@ export default function LAuthorization({
 }: {
   children: ReactElement;
 }) {
-  let isAuth: boolean = false;
+  const { state } = useContext(GlobalContext);
+  const { push, back } = useRouter();
   useEffect(() => {
-    let token = localStorage.getItem("oauth2");
-    if (token) {
-      isAuth = true;
+    if (state.user.auth.isAuth) {
+      push("/");
     }
   });
   return (
     <main className="w-full h-full flex justify-center items-center">
-      {isAuth ? redirect("/") : children}
+      {children}
     </main>
   );
 }

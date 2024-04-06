@@ -1,4 +1,5 @@
 import { EdamamResponseInterface } from "@/types/EdamamTypes";
+import { getFetchHeaderOptions } from "./fetchHelper";
 
 async function fetchMenuItem(menuName: string) {
   try {
@@ -13,16 +14,6 @@ async function fetchMenuItem(menuName: string) {
   }
 }
 
-function getFetchHeaderOptions(
-  method: string = "GET",
-  body?: any
-): RequestInit {
-  return {
-    method,
-    mode: "cors",
-    body,
-  };
-}
 async function searchRecipe(
   key: string
 ): Promise<EdamamResponseInterface | null> {
@@ -52,4 +43,4 @@ async function nextPageFetch(nextPagePath: string | null | undefined) {
     return null;
   }
 }
-export { fetchMenuItem, searchRecipe, nextPageFetch, getFetchHeaderOptions };
+export { fetchMenuItem, searchRecipe, nextPageFetch };
