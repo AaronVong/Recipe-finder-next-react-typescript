@@ -12,6 +12,7 @@ import { GlobalContext } from "@/store/contexts";
 import { addFavoriteRecipe } from "@/services/fetchWebContent";
 import { RecipeLink } from "@/types/UserTypes";
 import { AddFavAction } from "@/store/actions/userActions";
+import { redirect } from "next/navigation";
 
 export default function EdamamCard({
   recipe,
@@ -53,6 +54,9 @@ export default function EdamamCard({
   const handleClickFavorite = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     const response = await addFavoriteRecipe(recipeLink);
+    if (state.user.auth.isAuth == false) {
+      redirect("/sign-in");
+    }
     if (response.status && response.data) {
       dispatch(AddFavAction(response.data));
     }

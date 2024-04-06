@@ -30,7 +30,7 @@ export default function AuthorizationCheck({ children }: { children: any }) {
           const response = await refreshTokenRequest;
           if (response.status) {
             console.log("refresh token success");
-            localStorage.set("oauth2", JSON.stringify(response.data));
+            localStorage.setItem("oauth2", JSON.stringify(response.data));
             dispatch(SetAuthAction({ token: response.data, isAuth: true }));
           } else {
             // refresh failed
