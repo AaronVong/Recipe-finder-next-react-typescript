@@ -11,7 +11,7 @@ interface RecipeLink {
   image: {
     uri: string;
     title: string;
-    options: Array<any>;
+    options?: Array<any>;
   } | null;
 }
 

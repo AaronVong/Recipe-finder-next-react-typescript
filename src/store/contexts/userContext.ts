@@ -6,11 +6,12 @@ import {
 import {
   AccessTokenInterface,
   AuthInterface,
+  FavortieRecipeInterafce,
   UserProfileInterface,
 } from "@/types/UserTypes";
 
 interface UserStateInterface {
-  favoriteRecipes: Array<string>;
+  favoriteRecipes: FavortieRecipeInterafce;
   isLoading: boolean;
   auth: AuthInterface;
   email?: string; // this email using when first time user register
@@ -18,7 +19,12 @@ interface UserStateInterface {
 }
 
 let initUserState: UserStateInterface = {
-  favoriteRecipes: [],
+  favoriteRecipes: {
+    id: "",
+    name: "",
+    uid: "",
+    links: [],
+  },
   isLoading: false,
   auth: {
     token: {
