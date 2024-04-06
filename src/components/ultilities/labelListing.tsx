@@ -9,9 +9,12 @@ export default function LabelListing({
     labelArray.length <= 1
       ? "first:after:content-none last:after:content-none"
       : "last:after:content-none";
-  const list = labelArray.map((label) => {
+  const list = labelArray.map((label, index) => {
     return (
-      <li key={label} className={"capitalize after:content-[','] " + classes}>
+      <li
+        key={`${label} ${index}`}
+        className={"capitalize after:content-[','] " + classes}
+      >
         {label}
       </li>
     );
