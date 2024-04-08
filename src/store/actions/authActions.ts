@@ -1,5 +1,7 @@
-import { AccessTokenInterface } from "@/types/UserTypes";
-import { AuthenticationStateInterface } from "../contexts/authContext";
+import {
+  AccessTokenInterface,
+  AuthenticationStateInterface,
+} from "../contexts/authContext";
 
 enum EnumAuthenticationAction {
   SignIn = "SignIn",

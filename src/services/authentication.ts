@@ -236,6 +236,47 @@ async function checkAuthentication() {
   }
   return responseData;
 }
+
+async function signOff() {
+  const responseData: {
+    status: boolean;
+    data: any;
+  } = {
+    status: false,
+    data: null,
+  };
+  try {
+    const oauth2 = localStorage.getItem("oauth2");
+    if (!oauth2) return responseData;
+    const token = JSON.parse(oauth2);
+    if (
+      process.env.NEXT_PUBLIC_BACKEND_CLIENT_ID &&
+      process.env.NEXT_PUBLIC_BACKEND_CLIENT_SECRET
+    ) {
+      const formData = new FormData();
+      formData.append("client_id", process.env.NEXT_PUBLIC_BACKEND_CLIENT_ID);
+      formData.append(
+        "client_secret",
+        process.env.NEXT_PUBLIC_BACKEND_CLIENT_SECRET
+      );
+      formData.append("token", token.access_token);
+      const options = getFetchHeaderOptions("POST", formData);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_PATH}/oauth/revoke`,
+        options
+      );
+      if (response.ok) {
+        responseData.status = true;
+        localStorage.removeItem("oauth2");
+      }
+    }
+    return responseData;
+  } catch (error) {
+    console.log(error);
+    return responseData;
+  }
+  return responseData;
+}
 export {
   signIn,
   signUp,
@@ -243,6 +284,7 @@ export {
   getUserInfo,
   refreshAccessToken,
   checkAuthentication,
+  signOff,
 };
 export type {
   SignInErrorType,

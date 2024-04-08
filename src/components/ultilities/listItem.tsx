@@ -25,9 +25,8 @@ export default function ListItem({
           {itemTitle}
         </a>
       ) : (
-        <span className={classes}>{itemTitle}</span>
+        <div className={classes}>{itemTitle ?? children}</div>
       )}
-      {children}
     </li>
   );
 }

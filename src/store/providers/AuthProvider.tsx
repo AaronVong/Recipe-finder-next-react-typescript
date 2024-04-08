@@ -4,6 +4,7 @@ import authReducer from "../reducers/authReducer";
 import {
   AccessTokenInterface,
   AuthenticationContext,
+  EnumAuthenticationStatus,
   initAuthenticationState,
 } from "../contexts/authContext";
 import {
@@ -29,14 +30,16 @@ export default function AuthProvider({
   // Check authentication on mount
   useEffect(() => {
     (async () => {
-      const result = await checkAuthentication();
-      if (result.status) {
-        authDispatch(SignInAction(result.data));
-      } else {
-        authDispatch(SignOffAction());
+      if (auth.isAuthenticated != EnumAuthenticationStatus.Authenticated) {
+        const result = await checkAuthentication();
+        if (result.status) {
+          authDispatch(SignInAction(result.data));
+        } else {
+          authDispatch(SignOffAction());
+        }
       }
     })();
-  }, []);
+  }, [auth.isAuthenticated]);
   return (
     <AuthenticationContext.Provider value={{ auth, authDispatch }}>
       {children}
