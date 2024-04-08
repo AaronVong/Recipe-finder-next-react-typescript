@@ -1,7 +1,9 @@
 "use client";
 import { signIn, SignInType } from "@/services/authentication";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AuthenticationContext } from "@/store/contexts/authContext";
+import { SignInAction } from "@/store/actions/authActions";
 
 export default function SignIn() {
   const { push } = useRouter();
@@ -11,6 +13,7 @@ export default function SignIn() {
     username: "",
     password: "",
   });
+  const { authDispatch } = useContext(AuthenticationContext);
 
   let isFilled = user.username && user.password ? true : false;
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +37,7 @@ export default function SignIn() {
     console.log(data);
     if (data.status) {
       localStorage.setItem("oauth2", JSON.stringify(data.data));
-      push("/");
+      authDispatch(SignInAction(data.data));
     } else {
       setError(true);
       console.log(data.data);

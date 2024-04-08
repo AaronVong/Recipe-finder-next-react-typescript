@@ -18,13 +18,10 @@ export default function AuthProvider({
   const [auth, authDispatch] = useReducer(authReducer, initAuthenticationState);
   // Check authentication on mount
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("oauth2");
     if (token) {
       // Dispatch login action if token exists
-      authDispatch({
-        type: EnumAuthenticationAction.SignIn,
-        payload: JSON.parse(token),
-      });
+      authDispatch(SignInAction(token));
     } else {
       authDispatch(SignOffAction());
     }

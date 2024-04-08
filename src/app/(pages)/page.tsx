@@ -5,7 +5,6 @@ import Pagination from "@/components/pagination";
 import SearchForm from "@/components/searchForm";
 import { getFavoriteRecipeList } from "@/services/fetchWebContent";
 import { GetFavoriteAction } from "@/store/actions/userActions";
-import { GlobalContext } from "@/store/contexts";
 import {
   AuthenticationContext,
   EnumAuthenticationStatus,

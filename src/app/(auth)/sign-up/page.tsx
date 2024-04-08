@@ -1,19 +1,14 @@
 "use client";
-import {
-  signUp,
-  SignUpErrorType,
-  SignUpType,
-  Oauh2Type,
-} from "@/services/authentication";
+import { signUp, SignUpErrorType, SignUpType } from "@/services/authentication";
 import { SetEmailAction } from "@/store/actions/userActions";
-import { GlobalContext } from "@/store/contexts";
-import Error from "next/error";
+import { AuthenticationContext } from "@/store/contexts/authContext";
+import { UserContext } from "@/store/contexts/userContext";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 
 export default function SignUp() {
-  const { state, dispatch } = useContext(GlobalContext);
-
+  const { auth, authDispatch } = useContext(AuthenticationContext);
+  const { user: userState, userDispatch } = useContext(UserContext);
   const { push } = useRouter();
   const [user, setUser] = useState<SignUpType>({
     name: "",
@@ -76,7 +71,7 @@ export default function SignUp() {
 
     const response = await signUp(user);
     if (response.status) {
-      dispatch(SetEmailAction(user.mail));
+      userDispatch(SetEmailAction(user.mail));
       localStorage.setItem("sign_up_email", user.mail);
       alert("An mail with OTP has been sent, please verify it.");
       push("/verify-otp");

@@ -8,7 +8,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { useContext, useEffect, useMemo, useState } from "react";
-import { GlobalContext } from "@/store/contexts";
 import { addFavoriteRecipe } from "@/services/fetchWebContent";
 import { RecipeLink } from "@/types/UserTypes";
 import { AddFavAction } from "@/store/actions/userActions";

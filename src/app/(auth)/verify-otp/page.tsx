@@ -1,12 +1,12 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
 import { verifyOtp } from "@/services/authentication";
-import { GlobalContext } from "@/store/contexts";
 import { SetEmailAction } from "@/store/actions/userActions";
 import { redirect } from "next/navigation";
+import { AuthenticationContext } from "@/store/contexts/authContext";
 
 export default function VerifyOtp() {
-  const { state, dispatch } = useContext(GlobalContext);
+  const { auth, authDispatch } = useContext(AuthenticationContext);
   const [otp, setOtp] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   let signUpEmail = "";

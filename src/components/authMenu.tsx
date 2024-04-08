@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import ListItem from "./ultilities/listItem";
-import { GlobalContext } from "@/store/contexts";
 import React from "react";
 import {
   AuthenticationContext,
