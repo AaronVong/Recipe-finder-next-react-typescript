@@ -3,6 +3,7 @@ import {
   EdamamHitInterfacae,
   EdamamResponseInterface,
 } from "@/types/EdamamTypes";
+import EdamamActions from "../actions/edamamActions";
 
 interface EdamamStateInterface {
   recipeList: Array<EdamamResponseInterface>;
@@ -18,5 +19,13 @@ let initEdamamState: EdamamStateInterface = {
   isLoading: false,
 };
 
-export { initEdamamState };
+const EdamamContext = createContext<{
+  edamam: EdamamStateInterface;
+  edamamDispatch: React.Dispatch<EdamamActions>;
+}>({
+  edamam: initEdamamState,
+  edamamDispatch: () => {},
+});
+
+export { initEdamamState, EdamamContext };
 export type { EdamamStateInterface };

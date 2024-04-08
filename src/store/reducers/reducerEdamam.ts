@@ -1,10 +1,9 @@
-import AppActions from "../actions";
-import { EnumEdamam } from "../actions/edamamActions";
+import EdamamActionsType, { EnumEdamam } from "../actions/edamamActions";
 import { EdamamStateInterface } from "@/store/contexts/edamamContext";
 
 function edamamReducer(
   state: EdamamStateInterface,
-  action: AppActions
+  action: EdamamActionsType
 ): EdamamStateInterface {
   switch (action.type) {
     case EnumEdamam.SearchRecipe:

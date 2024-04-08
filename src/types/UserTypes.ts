@@ -15,18 +15,6 @@ interface RecipeLink {
   } | null;
 }
 
-interface AuthInterface {
-  token: AccessTokenInterface;
-  isAuth: boolean;
-}
-
-interface AccessTokenInterface {
-  access_token: string;
-  refresh_token: string;
-  expires_in: number;
-  token_type: string;
-}
-
 interface UserProfileInterface {
   name: string;
   mail: string;
@@ -35,10 +23,4 @@ interface UserProfileInterface {
   user_picture: any;
 }
 
-export type {
-  FavortieRecipeInterafce,
-  RecipeLink,
-  AuthInterface,
-  AccessTokenInterface,
-  UserProfileInterface,
-};
+export type { FavortieRecipeInterafce, RecipeLink, UserProfileInterface };

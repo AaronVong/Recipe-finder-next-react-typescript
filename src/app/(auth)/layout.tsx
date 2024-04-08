@@ -1,10 +1,10 @@
 "use client";
-import mainReducer from "@/store/reducers";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ReactElement, useContext, useEffect, useReducer } from "react";
-import { getUserInfo } from "@/services/authentication";
-import { GlobalContext } from "@/store/contexts";
-import Home from "../(pages)/page";
+import {
+  AuthenticationContext,
+  EnumAuthenticationStatus,
+} from "@/store/contexts/authContext";
 /**
  * Authroization Layout
  */
@@ -13,13 +13,13 @@ export default function LAuthorization({
 }: {
   children: ReactElement;
 }) {
-  const { state } = useContext(GlobalContext);
-  const { push, back } = useRouter();
+  const { auth } = useContext(AuthenticationContext);
+  const router = useRouter();
   useEffect(() => {
-    if (state.user.auth.isAuth) {
-      push("/");
+    if (auth.isAuthenticated == EnumAuthenticationStatus.Authenticated) {
+      router.push("/");
     }
-  });
+  }, [auth.isAuthenticated]);
   return (
     <main className="w-full h-full flex justify-center items-center">
       {children}

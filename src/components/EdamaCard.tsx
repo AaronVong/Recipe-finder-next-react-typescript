@@ -13,6 +13,13 @@ import { addFavoriteRecipe } from "@/services/fetchWebContent";
 import { RecipeLink } from "@/types/UserTypes";
 import { AddFavAction } from "@/store/actions/userActions";
 import { redirect } from "next/navigation";
+import { UserContext } from "@/store/contexts/userContext";
+import { EdamamContext } from "@/store/contexts/edamamContext";
+import {
+  AuthenticationContext,
+  EnumAuthenticationStatus,
+} from "@/store/contexts/authContext";
+import { useRouter } from "next/navigation";
 
 export default function EdamamCard({
   recipe,
@@ -21,7 +28,10 @@ export default function EdamamCard({
   recipe: EdamamRecipeInterface;
   recipe_id: string;
 }) {
-  const { state, dispatch } = useContext(GlobalContext);
+  const { user, userDispatch } = useContext(UserContext);
+  const { edamam, edamamDispatch } = useContext(EdamamContext);
+  const { auth, authDispatch } = useContext(AuthenticationContext);
+  const router = useRouter();
   function gatherFavoriteRecipeInfo(): RecipeLink {
     return {
       id: recipe_id,
@@ -35,7 +45,7 @@ export default function EdamamCard({
 
   function isFavoriteAdded(id: string): boolean {
     let added = false;
-    state.user.favoriteRecipes.links.forEach((item) => {
+    user.favoriteRecipes?.links.forEach((item) => {
       if (item.id == id) {
         added = true;
       }
@@ -44,21 +54,21 @@ export default function EdamamCard({
   }
   const isAdded = useMemo(
     () => isFavoriteAdded(recipe_id),
-    [state.user.favoriteRecipes, state.edamama.recipeList, recipe]
+    [user.favoriteRecipes, edamam.recipeList, recipe]
   );
   const recipeLink = useMemo(
     () => gatherFavoriteRecipeInfo(),
-    [recipe, state.edamama.recipeList]
+    [recipe, edamam.recipeList]
   );
 
   const handleClickFavorite = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    const response = await addFavoriteRecipe(recipeLink);
-    if (state.user.auth.isAuth == false) {
-      redirect("/sign-in");
+    if (auth.isAuthenticated == EnumAuthenticationStatus.Anonymous) {
+      return router.push("/sign-in");
     }
+    const response = await addFavoriteRecipe(recipeLink);
     if (response.status && response.data) {
-      dispatch(AddFavAction(response.data));
+      userDispatch(AddFavAction(response.data));
     }
   };
   return (

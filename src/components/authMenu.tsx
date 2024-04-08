@@ -2,13 +2,19 @@ import { useContext } from "react";
 import ListItem from "./ultilities/listItem";
 import { GlobalContext } from "@/store/contexts";
 import React from "react";
+import {
+  AuthenticationContext,
+  EnumAuthenticationStatus,
+} from "@/store/contexts/authContext";
+import { UserContext } from "@/store/contexts/userContext";
 
 export default function AuthMenu() {
-  const { state, dispatch } = useContext(GlobalContext);
+  const { auth, authDispatch } = useContext(AuthenticationContext);
+  const { user, userDispatch } = useContext(UserContext);
   return (
     <ul className="w-1/4 text-center flex">
-      {state.user.auth.isAuth ? (
-        <ListItem textWithLink={false} itemTitle={state.user.profile.mail} />
+      {auth.isAuthenticated == EnumAuthenticationStatus.Authenticated ? (
+        <ListItem textWithLink={false} itemTitle={user.profile?.mail} />
       ) : (
         <React.Fragment>
           <ListItem textWithLink={true} link="/sign-in" itemTitle="Sign in" />

@@ -8,24 +8,25 @@ import {
   SearchRecipeAction,
   SetLoadingAction,
 } from "@/store/actions/edamamActions";
+import { EdamamContext } from "@/store/contexts/edamamContext";
 export default function SearchForm() {
-  const { state, dispatch } = useContext(GlobalContext);
+  const { edamam, edamamDispatch } = useContext(EdamamContext);
   const [key, setKey] = useState<string>("");
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!key) {
       return;
     }
-    dispatch(SetLoadingAction(true));
+    edamamDispatch(SetLoadingAction(true));
     // call API
     const data = await searchRecipe(key);
     if (data) {
       // set response data to react
-      dispatch(SearchRecipeAction(data));
+      edamamDispatch(SearchRecipeAction(data));
     } else {
       alert("Not found any recipe.");
     }
-    dispatch(SetLoadingAction(false));
+    edamamDispatch(SetLoadingAction(false));
   }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {

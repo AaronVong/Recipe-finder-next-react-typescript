@@ -1,11 +1,5 @@
 import {
-  EdamamResponseInterface,
-  EdamamHitInterfacae,
-} from "@/types/EdamamTypes";
-import {
-  AuthInterface,
   FavortieRecipeInterafce,
-  RecipeLink,
   UserProfileInterface,
 } from "@/types/UserTypes";
 
@@ -33,11 +27,6 @@ type SetLoadingActionType = {
   payload: boolean;
 };
 
-type SetAuthActionType = {
-  type: EnumUser.SetAuth;
-  payload: AuthInterface;
-};
-
 type SetUserEmailActionType = {
   type: EnumUser.SetEmail;
   payload: string;
@@ -52,10 +41,9 @@ type AddFavActionType = {
   payload: FavortieRecipeInterafce;
 };
 // Combine all actions type and interface into one type
-type UserActions =
+type UserActionsType =
   | GetFavoriteActionType
   | SetLoadingActionType
-  | SetAuthActionType
   | SetUserEmailActionType
   | SetUserProfileActionType
   | AddFavActionType;
@@ -78,13 +66,6 @@ function GetFavoriteAction(
 function SetLoadingAction(payload: boolean): SetLoadingActionType {
   return {
     type: EnumUser.SetLoading,
-    payload,
-  };
-}
-
-function SetAuthAction(payload: AuthInterface): SetAuthActionType {
-  return {
-    type: EnumUser.SetAuth,
     payload,
   };
 }
@@ -117,11 +98,10 @@ function AddFavAction(payload: FavortieRecipeInterafce): AddFavActionType {
  * Export
  * ================================
  */
-export default UserActions;
+export default UserActionsType;
 export type {
   GetFavoriteActionType,
   SetLoadingActionType,
-  SetAuthActionType,
   SetUserEmailActionType,
   SetUserProfileActionType,
   AddFavActionType,
@@ -130,7 +110,6 @@ export {
   EnumUser,
   GetFavoriteAction,
   SetLoadingAction,
-  SetAuthAction,
   SetEmailAction,
   SetUserProfileAction,
   AddFavAction,

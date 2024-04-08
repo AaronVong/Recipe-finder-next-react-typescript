@@ -4,38 +4,48 @@ import EdamamCard from "@/components/EdamaCard";
 import Pagination from "@/components/pagination";
 import SearchForm from "@/components/searchForm";
 import { getFavoriteRecipeList } from "@/services/fetchWebContent";
-import { GetFavoriteAction, SetAuthAction } from "@/store/actions/userActions";
+import { GetFavoriteAction } from "@/store/actions/userActions";
 import { GlobalContext } from "@/store/contexts";
+import {
+  AuthenticationContext,
+  EnumAuthenticationStatus,
+} from "@/store/contexts/authContext";
+import { EdamamContext } from "@/store/contexts/edamamContext";
+import { UserContext } from "@/store/contexts/userContext";
 import { useContext, useEffect } from "react";
 
 export default function Home() {
-  const { state, dispatch } = useContext(GlobalContext);
-  const renderRecipe = state.edamama.recipeList[
-    state.edamama.curPage
-  ]?.hits.map((item, index) => {
-    if (item._links.self) {
-      let url = new URL(
-        item._links.self.href,
-        process.env.NEXT_PUBLIC_RECIPE_PATH
-      );
-      let link = url.pathname.split("/").pop() ?? "";
-      return <EdamamCard recipe={item.recipe} key={index} recipe_id={link} />;
+  const { edamam, edamamDispatch } = useContext(EdamamContext);
+  const { userDispatch } = useContext(UserContext);
+  const { auth } = useContext(AuthenticationContext);
+  const renderRecipe = edamam.recipeList[edamam.curPage]?.hits.map(
+    (item, index) => {
+      if (item._links.self) {
+        let url = new URL(
+          item._links.self.href,
+          process.env.NEXT_PUBLIC_RECIPE_PATH
+        );
+        let link = url.pathname.split("/").pop() ?? "";
+        return <EdamamCard recipe={item.recipe} key={index} recipe_id={link} />;
+      }
+      return null;
     }
-    return null;
-  });
+  );
 
   useEffect(() => {
-    (async () => {
-      const response = await getFavoriteRecipeList();
-      if (response.data && response.status) {
-        dispatch(GetFavoriteAction(response.data));
-      }
-    })();
+    if (auth.isAuthenticated == EnumAuthenticationStatus.Authenticated) {
+      (async () => {
+        const response = await getFavoriteRecipeList();
+        if (response.data && response.status) {
+          userDispatch(GetFavoriteAction(response.data));
+        }
+      })();
+    }
   }, []);
   return (
     <div className="relative">
       <SearchForm />
-      {state.edamama.isLoading ? (
+      {edamam.isLoading ? (
         "Loading..."
       ) : (
         <>

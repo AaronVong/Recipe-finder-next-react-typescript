@@ -1,54 +1,29 @@
-import { createContext, ReactElement, useContext, useReducer } from "react";
+import { createContext } from "react";
 import {
-  EdamamHitInterfacae,
-  EdamamResponseInterface,
-} from "@/types/EdamamTypes";
-import {
-  AccessTokenInterface,
-  AuthInterface,
   FavortieRecipeInterafce,
   UserProfileInterface,
 } from "@/types/UserTypes";
+import UserActionsType from "../actions/userActions";
 
 interface UserStateInterface {
-  favoriteRecipes: FavortieRecipeInterafce;
+  favoriteRecipes: FavortieRecipeInterafce | null;
   isLoading: boolean;
-  auth: AuthInterface;
   email?: string; // this email using when first time user register
-  profile: UserProfileInterface;
+  profile: UserProfileInterface | null;
 }
 
 let initUserState: UserStateInterface = {
-  favoriteRecipes: {
-    id: "",
-    name: "",
-    uid: "",
-    links: [],
-  },
+  favoriteRecipes: null,
   isLoading: false,
-  auth: {
-    token: {
-      access_token: "",
-      refresh_token: "",
-      expires_in: 0,
-      token_type: "",
-    },
-    isAuth: false,
-  },
-  profile: {
-    name: "",
-    mail: "",
-    field_u_first_name: "",
-    field_u_last_name: "",
-    user_picture: "",
-  },
+  profile: null,
 };
 
-let initAccessToken: AccessTokenInterface = {
-  access_token: "",
-  refresh_token: "",
-  expires_in: 0,
-  token_type: "",
-};
-export { initUserState, initAccessToken };
+const UserContext = createContext<{
+  user: UserStateInterface;
+  userDispatch: React.Dispatch<UserActionsType>;
+}>({
+  user: initUserState,
+  userDispatch: () => null,
+});
+export { initUserState, UserContext };
 export type { UserStateInterface };

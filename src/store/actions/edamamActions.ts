@@ -42,7 +42,7 @@ type SetCurPageActionType = {
 };
 
 // Combine all actions type and interface into one type
-type EdamamActions =
+type EdamamActionsType =
   | RecipeLoadingActionType
   | SearchRecipeActionType
   | RecipeDetailActionType
@@ -98,7 +98,7 @@ function SetLoadingAction(payload: boolean): RecipeLoadingActionType {
  * Export
  * ================================
  */
-export default EdamamActions;
+export default EdamamActionsType;
 export type {
   RecipeLoadingActionType,
   SearchRecipeActionType,
