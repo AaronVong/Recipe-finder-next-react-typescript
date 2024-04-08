@@ -1,7 +1,9 @@
+import { AccessTokenInterface } from "@/store/contexts/authContext";
 import {
   calculateExpiredTime,
   getAccessToken,
   getFetchHeaderOptions,
+  isTokenExpired,
 } from "./fetchHelper";
 
 type SignUpType = {
@@ -192,7 +194,56 @@ async function refreshAccessToken(): Promise<{ status: boolean; data: any }> {
     };
   }
 }
-export { signIn, signUp, verifyOtp, getUserInfo, refreshAccessToken };
+
+async function checkAuthentication() {
+  let responseData: {
+    status: boolean;
+    data: any;
+  } = {
+    status: false,
+    data: null,
+  };
+  // Get token in browser
+  const token = localStorage.getItem("oauth2");
+  if (token) {
+    // Token exists
+    console.log("Token exists");
+    const oauth2: AccessTokenInterface = JSON.parse(token);
+    if (isTokenExpired(oauth2.expires_in)) {
+      // Token is expired
+      console.log("Token expired");
+      localStorage.removeItem("oauth2");
+    } else {
+      // It is NOT expired
+      console.log("Token NOT expired");
+      // Check wheter token is valid or not
+      const isValidToken = await getUserInfo();
+      if (isValidToken.status) {
+        // Token is valid
+        console.log("Token is valid");
+        responseData.status = true;
+        responseData.data = oauth2;
+      } else {
+        // Token is invalid
+        console.log("Token is invalid");
+        localStorage.removeItem("oauth2");
+      }
+    }
+  } else {
+    // Token NOT exists
+    console.log("Token NOT exists");
+    localStorage.removeItem("oauth2");
+  }
+  return responseData;
+}
+export {
+  signIn,
+  signUp,
+  verifyOtp,
+  getUserInfo,
+  refreshAccessToken,
+  checkAuthentication,
+};
 export type {
   SignInErrorType,
   SignUpErrorType,

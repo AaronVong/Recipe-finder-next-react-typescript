@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import UserProvider from "@/store/providers/UserProvider";
 import EdamamProvider from "@/store/providers/EdamamProvider";
+import AuthProvider from "@/store/providers/AuthProvider";
+import UserProvider from "@/store/providers/UserProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <UserProvider>
-          <EdamamProvider>{children}</EdamamProvider>
-        </UserProvider>
+        <AuthProvider>
+          <UserProvider>
+            <EdamamProvider>{children}</EdamamProvider>
+          </UserProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -34,7 +34,6 @@ export default function SignIn() {
       alert("Please fill the form.");
     }
     const data = await signIn(user);
-    console.log(data);
     if (data.status) {
       localStorage.setItem("oauth2", JSON.stringify(data.data));
       authDispatch(SignInAction(data.data));

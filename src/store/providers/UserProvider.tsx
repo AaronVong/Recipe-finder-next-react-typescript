@@ -26,14 +26,13 @@ export default function UserProvider({
   // Load user profile on mount if is Authenticated
   useEffect(() => {
     if (auth.isAuthenticated == EnumAuthenticationStatus.Authenticated) {
+      console.log("load profile");
       loadProfile();
     }
   }, [auth.isAuthenticated]);
   return (
-    <AuthProvider>
-      <UserContext.Provider value={{ user, userDispatch }}>
-        {children}
-      </UserContext.Provider>
-    </AuthProvider>
+    <UserContext.Provider value={{ user, userDispatch }}>
+      {children}
+    </UserContext.Provider>
   );
 }

@@ -19,6 +19,7 @@ import {
   EnumAuthenticationStatus,
 } from "@/store/contexts/authContext";
 import { useRouter } from "next/navigation";
+import { checkAuthentication } from "@/services/authentication";
 
 export default function EdamamCard({
   recipe,
@@ -62,9 +63,18 @@ export default function EdamamCard({
 
   const handleClickFavorite = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
+    const result = await checkAuthentication();
+
     if (auth.isAuthenticated == EnumAuthenticationStatus.Anonymous) {
+      alert("Sign in to add favorite.");
       return router.push("/sign-in");
     }
+
+    if (!result.status) {
+      alert("Session expired.");
+      router.push("/sign-in");
+    }
+
     const response = await addFavoriteRecipe(recipeLink);
     if (response.status && response.data) {
       userDispatch(AddFavAction(response.data));
