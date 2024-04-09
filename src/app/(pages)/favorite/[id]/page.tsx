@@ -3,14 +3,19 @@
 import EdamamCard from "@/components/EdamaCard";
 import { fetchRecipeDetail } from "@/services/fetchWebContent";
 import {
+  AuthenticationContext,
+  EnumAuthenticationStatus,
+} from "@/store/contexts/authContext";
+import {
   EdamamHitInterfacae,
   EdamamRecipeInterface,
 } from "@/types/EdamamTypes";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function RecipeDetail({ params }: { params: { id: string } }) {
   const [recipe, setRecipe] = useState<EdamamHitInterfacae | null>(null);
+  const { auth } = useContext(AuthenticationContext);
   const router = useRouter();
   let rid = () => {
     if (recipe && recipe._links.self) {
@@ -23,6 +28,9 @@ export default function RecipeDetail({ params }: { params: { id: string } }) {
     return "#";
   };
   useEffect(() => {
+    if (auth.isAuthenticated == EnumAuthenticationStatus.Anonymous) {
+      router.push("/sign-in");
+    }
     (async () => {
       const response = await fetchRecipeDetail(params.id);
       if (response.status && response.data) {
@@ -30,7 +38,7 @@ export default function RecipeDetail({ params }: { params: { id: string } }) {
         console.log(response.data);
       }
     })();
-  }, [params.id]);
+  }, [params.id, auth.isAuthenticated]);
   return (
     <div>
       {recipe != null ? (

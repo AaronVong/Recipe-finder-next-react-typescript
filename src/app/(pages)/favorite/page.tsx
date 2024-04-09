@@ -24,10 +24,10 @@ export default function Favorite() {
   };
   useEffect(() => {
     if (auth.isAuthenticated == EnumAuthenticationStatus.Anonymous) {
-      router.push("/sign-in");
+      return router.push("/sign-in");
     }
     loadFavList();
-  }, []);
+  }, [auth.isAuthenticated]);
 
   const renderFavItems = () => {
     return user.favoriteRecipes?.links.map((item) => {
