@@ -94,6 +94,27 @@ async function getFavoriteRecipeList() {
     return response;
   }
 }
+
+async function fetchRecipeDetail(id: string) {
+  let responseData: { status: boolean; data: any } = {
+    status: false,
+    data: null,
+  };
+  try {
+    let url = `${process.env.NEXT_PUBLIC_RECIPE_PATH}/${id}?type=public&app_id=${process.env.NEXT_PUBLIC_RECIPE_APP_ID}&app_key=${process.env.NEXT_PUBLIC_RECIPE_APP_KEY}`;
+    const options = getFetchHeaderOptions();
+    const response = await fetch(url, options);
+    const data = await response.json();
+    if (response.ok) {
+      responseData.status = true;
+      responseData.data = data;
+    }
+    return responseData;
+  } catch (error) {
+    console.log(error);
+    return responseData;
+  }
+}
 export {
   fetchMenuItem,
   searchRecipe,
@@ -101,4 +122,5 @@ export {
   addFavoriteRecipe,
   getFetchHeaderOptions,
   getFavoriteRecipeList,
+  fetchRecipeDetail,
 };
